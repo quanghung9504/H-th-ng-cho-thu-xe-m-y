@@ -1,0 +1,311 @@
+{
+	"info": {
+		"_postman_id": "8b51d8b2-4d5c-4e8a-9a9a-9e6b5c4d3a2b",
+		"name": "Hệ Thống Thuê Xe Máy - MotorRentals",
+		"description": "API Collection for Motorbike Rental System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "1. Đăng ký (Register)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"fullName\": \"Phạm Văn A\",\n  \"email\": \"testuser@gmail.com\",\n  \"password\": \"abc12345\",\n  \"phone\": \"0912345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						},
+						"description": "Gửi thông tin đăng ký để nhận mã OTP."
+					},
+					"response": []
+				},
+				{
+					"name": "2. Xác nhận OTP (Verify OTP)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"testuser@gmail.com\",\n  \"otp\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/verify-otp",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"verify-otp"
+							]
+						},
+						"description": "Nhập mã OTP nhận được từ email (hoặc terminal) để tạo tài khoản."
+					},
+					"response": []
+				},
+				{
+					"name": "3. Đăng nhập (Login)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"if (jsonData.token) {\r",
+									"    pm.environment.set(\"token\", jsonData.token);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin@test.com\",\n  \"password\": \"admin123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": "Đăng nhập và tự động lưu Token vào biến môi trường."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Fleet (Xe & Loại xe)",
+			"item": [
+				{
+					"name": "Lấy danh sách xe (Tất cả)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/fleet/vehicles",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"fleet",
+								"vehicles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tìm xe theo Filter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/fleet/vehicles?brand=Honda&minPrice=100000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"fleet",
+								"vehicles"
+							],
+							"query": [
+								{
+									"key": "brand",
+									"value": "Honda"
+								},
+								{
+									"key": "minPrice",
+									"value": "100000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Xem chi tiết xe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/fleet/vehicles/ID_XE_CUA_BAN",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"fleet",
+								"vehicles",
+								"ID_XE_CUA_BAN"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transactions (Đặt xe & Ví)",
+			"item": [
+				{
+					"name": "Lịch sử chuyến đi của tôi",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/transactions/orders/my",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"transactions",
+								"orders",
+								"my"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Đặt xe mới",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"vehicleId\": \"ID_XE_CUA_BAN\",\n  \"startDate\": \"2024-05-10\",\n  \"endDate\": \"2024-05-12\",\n  \"paymentMethod\": \"WALLET\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/transactions/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"transactions",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Marketplace (Săn cọc)",
+			"item": [
+				{
+					"name": "Danh sách các suất cọc đăng bán",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/transactions/marketplace",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"transactions",
+								"marketplace"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin Dashboard",
+			"item": [
+				{
+					"name": "Tổng quan thống kê",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/admin/stats/overview",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"stats",
+								"overview"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:5000/api",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

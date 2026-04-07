@@ -1,0 +1,310 @@
+:root {
+  /* Premium Light Luxury Theme Core Colors */
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f1f5f9;
+  
+  /* Accents - Vibrant Indigo & Elegant Blue */
+  --accent-primary: #4f46e5;
+  --accent-secondary: #0ea5e9;
+  --accent-gradient: linear-gradient(135deg, #4f46e5 0%, #0ea5e9 100%);
+  --accent-glow: 0 10px 40px rgba(79, 70, 229, 0.15);
+  
+  /* Text */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+
+  /* States */
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --pending: #0ea5e9;
+
+  /* UI Tokens */
+  --border-radius-sm: 12px;
+  --border-radius-md: 24px;
+  --border-radius-lg: 32px;
+  --border-radius-pill: 999px;
+
+  /* Effects - Soft Glass for Light Theme */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.05);
+  --glass-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+  
+  /* Custom Scrollbar Styles */
+  --scrollbar-width: 8px;
+  --scrollbar-track: var(--bg-primary);
+  --scrollbar-thumb: #cbd5e1;
+  --scrollbar-thumb-hover: #94a3b8;
+
+  /* Typography */
+  --font-main: 'Plus Jakarta Sans', sans-serif;
+  --transition-smooth: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Global Smooth Behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Custom Scrollbar Implementation */
+::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+}
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: var(--border-radius-pill);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* World-class Text Gradients */
+.text-gradient {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+/* Advanced Glassmorphism on Light Background */
+.glass-card {
+  background: var(--bg-secondary);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--glass-shadow);
+  padding: 2.5rem;
+  transition: all var(--transition-smooth);
+}
+
+.glass-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  border-color: rgba(79, 70, 229, 0.1);
+}
+
+/* Premium Buttons System */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2.4rem;
+  font-family: var(--font-main);
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: var(--border-radius-md);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-smooth);
+  text-decoration: none;
+  gap: 0.8rem;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: -0.2px;
+  z-index: 1;
+}
+
+.btn-primary {
+  background: var(--accent-gradient);
+  color: white;
+  box-shadow: 0 8px 25px rgba(79, 70, 229, 0.25);
+}
+
+.btn-primary:active {
+  transform: scale(0.97);
+}
+
+.btn-secondary {
+  background: white;
+  color: var(--text-primary);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-tertiary);
+  border-color: #cbd5e1;
+}
+
+/* Form Inputs Luxury */
+.form-input {
+  width: 100%;
+  padding: 1.1rem 1.4rem;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--border-radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  font-size: 1rem;
+  transition: all var(--transition-fast);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.01);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+
+/* Skeleton Loading Animation - Light Mode */
+@keyframes skeleton-loading {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, 
+    #f1f5f9 25%, 
+    #e2e8f0 50%, 
+    #f1f5f9 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* Badges Luxury */
+.badge {
+  padding: 0.4rem 1rem;
+  border-radius: var(--border-radius-pill);
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Grid & Layout System */
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2.5rem; }
+.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem; }
+
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Modal & Overlay System */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  z-index: 1000;
+}
+
+.btn-close {
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+}
+
+.btn-close:hover {
+  transform: rotate(90deg);
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: var(--text-primary);
+}
+
+/* Flexbox Utilities */
+.flex { display: flex; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+
+/* Responsive Utilities */
+@media (max-width: 768px) {
+  .container { padding: 0 1.5rem; }
+  h1 { font-size: 2.5rem; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+
+/* Optimized Printing for Financial Reports */
+@media print {
+  nav, 
+  aside, 
+  header, 
+  .no-print, 
+  input[type="date"],
+  .form-input,
+  button {
+    display: none !important;
+  }
+  
+  main, 
+  .container {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  div[style*="marginLeft: '320px'"] {
+    margin-left: 0 !important;
+  }
+
+  body {
+    background: white !important;
+    padding: 0 !important;
+  }
+
+  .glass-card {
+    box-shadow: none !important;
+    border: 1px solid #e2e8f0 !important;
+    break-inside: avoid;
+    margin-bottom: 20px !important;
+    background: white !important;
+    padding: 1.5rem !important;
+  }
+
+  .text-gradient {
+    background: none !important;
+    -webkit-text-fill-color: var(--text-primary) !important;
+    color: var(--text-primary) !important;
+    font-weight: 900;
+    font-size: 1.8rem !important;
+  }
+
+  .grid-3 {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1fr !important;
+    gap: 15px !important;
+  }
+
+  /* Force charts to be visible and correctly sized in print */
+  .recharts-responsive-container {
+    width: 100% !important;
+    height: 400px !important;
+  }
+}
