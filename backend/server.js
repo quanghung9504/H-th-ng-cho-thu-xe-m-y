@@ -66,3 +66,6 @@ mongoose.connect(process.env.MONGODB_URI)
 app.get('/', (req, res) => {
   res.send('Motorbike Rental API is running...');
 });
+app.use((req, res) => {
+  res.status(404).json({ message: 'Route not found' });
+});
