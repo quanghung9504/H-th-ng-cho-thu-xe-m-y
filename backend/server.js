@@ -21,8 +21,8 @@ require('./services/cronService');
 const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:5174',
-  /^http:\/\/192\.168\.\d+\.\d+(:\d+)?$/, // Cho phép mọi IP trong mạng LAN (192.168.x.x)
-  /\.vercel\.app$/,
+  /^http:\/\/192\.168\.\d+\.\d+(:\d+)?$/,
+  /^https:\/\/.*\.vercel\.app$/
 ];
 
 app.use(cors({
