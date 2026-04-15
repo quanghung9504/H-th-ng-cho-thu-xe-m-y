@@ -66,11 +66,25 @@ app.use((req, res) => {
   res.status(404).json({ message: 'Route not found' });
 });
 
-// ❗ Check ENV trước khi connect DB
-if (!process.env.MONGODB_URI) {
-  console.error('❌ Missing MONGODB_URI in environment variables');
+
+// ================== ✅ CHECK ENV (THÊM Ở ĐÂY) ==================
+const requiredEnvs = [
+  'MONGODB_URI',
+  'JWT_SECRET'
+  // nếu bạn dùng email thì mở ra:
+  // 'EMAIL_USER',
+  // 'EMAIL_PASS'
+];
+
+const missingEnvs = requiredEnvs.filter(env => !process.env[env]);
+
+if (missingEnvs.length > 0) {
+  console.error('❌ Missing environment variables:');
+  missingEnvs.forEach(env => console.error(`- ${env}`));
   process.exit(1);
 }
+// ===============================================================
+
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI)
